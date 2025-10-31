@@ -1,0 +1,351 @@
+:root {
+  color-scheme: light;
+  font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+  background-color: #f7f8fb;
+  color: #1f2233;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  padding: 2rem clamp(1rem, 4vw, 4rem) 1.5rem;
+  background: linear-gradient(135deg, #4262ff, #86a0ff);
+  color: white;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(66, 98, 255, 0.2);
+}
+
+header h1 {
+  margin: 0 0 0.5rem;
+  font-size: clamp(2.2rem, 5vw, 3rem);
+  letter-spacing: -0.02em;
+}
+
+header p {
+  margin: 0 auto;
+  max-width: 600px;
+  font-size: 1.05rem;
+}
+
+main {
+  flex: 1;
+  width: min(980px, 92vw);
+  margin: -2.6rem auto 2.8rem;
+  background: white;
+  border-radius: 26px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: 0 20px 45px rgba(23, 40, 120, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.3rem, 3vw, 2rem);
+}
+
+section.controls,
+section.actions {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  align-items: end;
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+label {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #2b2f45;
+}
+
+input,
+select,
+button {
+  font: inherit;
+  border-radius: 12px;
+  border: 1px solid #d6dcf5;
+  padding: 0.7rem 0.85rem;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease,
+    transform 0.18s ease;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #5c7bff;
+  box-shadow: 0 0 0 3px rgba(92, 123, 255, 0.15);
+}
+
+button {
+  border: none;
+  background: #4262ff;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.75rem 1rem;
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 12px 20px rgba(66, 98, 255, 0.16);
+}
+
+button:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+button.ghost {
+  background: #eff2ff;
+  color: #4262ff;
+}
+
+button.ghost:hover {
+  box-shadow: 0 10px 18px rgba(92, 123, 255, 0.15);
+}
+
+.button-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.visualizer {
+  display: grid;
+  grid-template-columns: minmax(260px, 2fr) minmax(220px, 1fr);
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.table-wrapper,
+.log {
+  background: #f8f9ff;
+  border-radius: 20px;
+  padding: 1.2rem;
+  border: 1px solid rgba(92, 123, 255, 0.15);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.7);
+}
+
+.table-wrapper h2,
+.log h2,
+.notes h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.table-grid {
+  display: grid;
+  gap: 0.7rem;
+  margin-top: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.bucket {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  align-items: stretch;
+  gap: 0.5rem;
+  padding: 0.55rem 0.6rem;
+  border-radius: 12px;
+  background: white;
+  border: 1px solid #dfe4ff;
+  box-shadow: 0 6px 12px rgba(86, 106, 158, 0.08);
+  position: relative;
+  will-change: transform, box-shadow;
+}
+
+.bucket .index {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+  background: rgba(92, 123, 255, 0.1);
+  color: #3248b5;
+  font-weight: 600;
+}
+
+.bucket .slot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.bucket .item {
+  padding: 0.38rem 0.55rem;
+  background: #eff2ff;
+  border-radius: 10px;
+  border: 1px solid rgba(92, 123, 255, 0.2);
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.bucket .item span.key {
+  font-weight: 600;
+  color: #37406b;
+}
+
+.bucket .item[data-state="empty"] {
+  background: rgba(103, 115, 148, 0.06);
+  border-style: dashed;
+  color: #7985a9;
+  font-weight: 500;
+}
+
+.bucket .item[data-state="tombstone"] {
+  background: rgba(255, 153, 102, 0.14);
+  border: 1px dashed rgba(255, 153, 102, 0.9);
+  color: #c05621;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.bucket.final-highlight {
+  border-color: #5c7bff;
+  box-shadow: 0 10px 22px rgba(92, 123, 255, 0.28);
+}
+
+.bucket.animate-probe {
+  animation: probePulse 0.45s ease;
+}
+
+.bucket.animate-hit {
+  animation: placementGlow 0.65s ease;
+}
+
+.bucket.animate-hit .item {
+  animation: itemGlow 0.65s ease;
+}
+
+.log {
+  overflow-y: auto;
+  max-height: 340px;
+}
+
+.log ol,
+.log ul {
+  list-style: decimal;
+  padding-left: 1.25rem;
+  margin: 0;
+}
+
+.log li {
+  margin-bottom: 0.65rem;
+  font-size: 0.95rem;
+}
+
+.notes {
+  background: #f2f4ff;
+  border-radius: 18px;
+  padding: 1.2rem;
+  border: 1px solid rgba(92, 123, 255, 0.15);
+}
+
+.notes ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+.notes li + li {
+  margin-top: 0.45rem;
+}
+
+.notes strong {
+  color: #3543a7;
+}
+
+.notes .note {
+  margin: 0.85rem 0 0;
+  font-size: 0.92rem;
+  color: #3e4678;
+}
+
+@keyframes probePulse {
+  0% {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(86, 106, 158, 0.08);
+  }
+  45% {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 22px rgba(66, 98, 255, 0.22);
+  }
+  100% {
+    transform: translateY(0);
+    box-shadow: 0 6px 12px rgba(86, 106, 158, 0.08);
+  }
+}
+
+@keyframes placementGlow {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 6px 12px rgba(86, 106, 158, 0.08);
+    border-color: #dfe4ff;
+  }
+  35% {
+    transform: scale(1.03);
+    box-shadow: 0 14px 28px rgba(92, 123, 255, 0.32);
+    border-color: #5c7bff;
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 6px 12px rgba(86, 106, 158, 0.08);
+    border-color: #dfe4ff;
+  }
+}
+
+@keyframes itemGlow {
+  0% {
+    background: #eff2ff;
+    color: inherit;
+  }
+  40% {
+    background: rgba(92, 123, 255, 0.25);
+    color: #1f2b66;
+  }
+  100% {
+    background: #eff2ff;
+    color: inherit;
+  }
+}
+
+@media (max-width: 860px) {
+  .visualizer {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin-top: -2rem;
+  }
+
+  .log {
+    max-height: none;
+  }
+}
+
+@media (max-width: 600px) {
+  header {
+    padding-bottom: 2rem;
+  }
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+}
+

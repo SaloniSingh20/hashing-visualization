@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hashing Visualizer</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Hashing Playground</h1>
+      <p>
+        Experiment with four classic hash table collision strategies. Choose a
+        method, add keys, and watch how collisions are resolved in real time.
+      </p>
+    </header>
+
+    <main>
+      <section class="controls">
+        <div class="control-group">
+          <label for="strategy">Hashing Strategy</label>
+          <select id="strategy">
+            <option value="separateChaining">Separate Chaining</option>
+            <option value="linearProbing">Linear Probing</option>
+            <option value="quadraticProbing">Quadratic Probing</option>
+            <option value="doubleHashing">Double Hashing</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label for="tableSize">Table Size</label>
+          <input
+            id="tableSize"
+            type="number"
+            min="3"
+            max="199"
+            value="11"
+          />
+        </div>
+
+        <button id="resetBtn" class="ghost">Reset Table</button>
+      </section>
+
+      <section class="actions">
+        <div class="control-group">
+          <label for="keyInput">Key</label>
+          <input
+            id="keyInput"
+            type="text"
+            placeholder="e.g. 42 or apple"
+          />
+        </div>
+
+        <div class="button-row">
+          <button id="insertBtn">Insert</button>
+          <button id="searchBtn">Search</button>
+          <button id="deleteBtn">Delete</button>
+        </div>
+      </section>
+
+      <section class="visualizer">
+        <div class="table-wrapper">
+          <h2>Hash Table</h2>
+          <div id="hashTable" class="table-grid"></div>
+        </div>
+
+        <aside class="log">
+          <h2>Steps</h2>
+          <ol id="log"></ol>
+        </aside>
+      </section>
+
+      <section class="notes">
+        <h2>How the strategies differ</h2>
+        <ul>
+          <li><strong>Separate Chaining</strong>: Keep a mini list in each bucket.</li>
+          <li>
+            <strong>Linear Probing</strong>: Move right one step at a time until
+            an empty slot is found.
+          </li>
+          <li>
+            <strong>Quadratic Probing</strong>: Jump using squares (1², 2², 3²,
+            ...) for a wider search.
+          </li>
+          <li>
+            <strong>Double Hashing</strong>: Use a second hash function to jump
+            by larger, consistent steps.
+          </li>
+        </ul>
+        <p class="note">
+          Open-addressing tables automatically resize to nearby prime sizes to
+          keep probes short. Separate chaining rebalances when chains grow too
+          long.
+        </p>
+      </section>
+    </main>
+
+    <template id="bucketTemplate">
+      <div class="bucket">
+        <span class="index"></span>
+        <div class="slot"></div>
+      </div>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
